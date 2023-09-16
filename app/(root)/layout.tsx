@@ -24,7 +24,7 @@ export default function RootLayout({
           <TopBar />
           <main className="flex flex-row">
             <LeftBar />
-            <section className="flex w-full flex-col items-center px-6 pt-22 ">
+            <section className="flex w-full flex-col items-center px-6 pt-22">
               <div className="w-full">{children}</div>
             </section>
           </main>
