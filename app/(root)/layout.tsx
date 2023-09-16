@@ -1,9 +1,9 @@
 import "../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import TopBar from "../components/shared/TopBar/TopBar";
 import { ClerkProvider } from "@clerk/nextjs";
-import LeftBar from "../components/shared/LeftBar/LeftBar";
+import TopBar from "@/components/shared/TopBar/TopBar";
+import LeftBar from "@/components/shared/LeftBar/LeftBar";
 
 const inter = Inter({ subsets: ["latin"] });
 

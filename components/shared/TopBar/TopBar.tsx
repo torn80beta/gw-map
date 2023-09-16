@@ -1,23 +1,24 @@
-"use client";
-
 import Link from "next/link";
 import "./TopBar.scss";
 import Image from "next/image";
 import { SignedIn, UserButton } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs";
 
-function TopBar() {
+async function TopBar() {
+  const user = await currentUser();
+
+  if (!user) {
+    return null;
+  }
+
   return (
     <div className="topBar">
       <Link href={"/"}>
-        <Image
-          src={"/assets/logo2.png"}
-          alt={"logo"}
-          width={48}
-          height={"48"}
-        />
+        <Image src={"/assets/logo2.png"} alt={"logo"} width={48} height={48} />
       </Link>
       <div className="flex items-center gap-1">
         <SignedIn>
+          <h4>{user.username}</h4>
           <UserButton
             appearance={{
               elements: { userButtonPopoverFooter: "hidden" },

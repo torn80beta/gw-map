@@ -1,6 +1,6 @@
 "use client";
 
-import { OrganizationSwitcher, SignOutButton, SignedIn } from "@clerk/nextjs";
+import { SignOutButton, SignedIn } from "@clerk/nextjs";
 import "./LeftBar.scss";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -10,6 +10,10 @@ function LeftBar() {
 
   return (
     <div className="leftsidebar">
+      <div>
+        <p>Search</p>
+        <p>Add address</p>
+      </div>
       <SignedIn>
         <SignOutButton signOutCallback={() => router.push("/sign-in")}>
           <button className="flex items-center bg-emerald-500 hover:bg-emerald-400 px-6 py-2 rounded-lg gap-1">
