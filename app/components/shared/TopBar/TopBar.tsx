@@ -29,10 +29,7 @@ function TopBar() {
                   alt="logout"
                   width={24}
                   height={24}
-                  style={{
-                    filter:
-                      "invert(100%) sepia(100%) saturate(2000%) hue-rotate(180deg)",
-                  }}
+                  // style={{filter: "invert(100%) sepia(100%) saturate(2000%) hue-rotate(180deg)",}}
                 />
               </div>
               <p className="max-lg:hidden">Logout</p>
