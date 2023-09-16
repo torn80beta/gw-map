@@ -39,8 +39,6 @@ function LeftBar() {
             );
           })}
         </div>
-        {/* <p>Search</p>
-        <p>Add address</p> */}
       </div>
       <SignedIn>
         <SignOutButton signOutCallback={() => router.push("/sign-in")}>
