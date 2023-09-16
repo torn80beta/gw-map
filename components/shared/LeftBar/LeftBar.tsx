@@ -14,7 +14,7 @@ function LeftBar() {
   return (
     <div className="leftsidebar">
       <div>
-        <div className="flex w-full flex-1 items-start max-lg:items-center flex-col gap-6">
+        <div className="flex w-full flex-1 items-start max-lg:items-center flex-col gap-4">
           {sidebarLinks.map((link) => {
             const isActive =
               (pathname.includes(link.route) && link.route.length > 1) ||
@@ -24,7 +24,7 @@ function LeftBar() {
               <Link
                 href={link.route}
                 key={link.label}
-                className={`leftsidebar_link ${isActive && "bg-primary-500"}`}
+                className={`leftsidebar_link ${isActive && "bg-emerald-500"}`}
               >
                 <div className="h-6 ">
                   <Image
@@ -44,7 +44,7 @@ function LeftBar() {
       </div>
       <SignedIn>
         <SignOutButton signOutCallback={() => router.push("/sign-in")}>
-          <button className="flex items-center bg-emerald-500 hover:bg-emerald-400 px-6 py-2 rounded-lg gap-1">
+          <button className="flex items-center bg-emerald-500 hover:bg-emerald-300 px-6 py-2 rounded-lg gap-1">
             <div className="flex cursor-pointer">
               <Image
                 src="/assets/logout.svg"
