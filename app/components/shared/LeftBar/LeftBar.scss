@@ -1,0 +1,7 @@
+.leftsidebar {
+  @apply sticky left-0 top-0 z-20 flex h-screen w-fit flex-col justify-between border-r pb-5 pt-28 px-4 max-md:hidden bg-slate-200;
+}
+
+.leftsidebar_link {
+  @apply relative flex justify-start gap-4 rounded-lg p-4;
+}

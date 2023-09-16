@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import TopBar from "../components/shared/TopBar/TopBar";
 import { ClerkProvider } from "@clerk/nextjs";
+import LeftBar from "../components/shared/LeftBar/LeftBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,12 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <TopBar />
-          {children}
+          <main className="flex flex-row">
+            <LeftBar />
+            <section className="flex w-full flex-col items-center px-6 pt-22 ">
+              <div className="w-full">{children}</div>
+            </section>
+          </main>
         </body>
       </html>
     </ClerkProvider>
