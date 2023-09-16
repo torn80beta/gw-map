@@ -34,7 +34,7 @@ function LeftBar() {
                     height={24}
                   />
                 </div>
-                <p className="text-light-1 max-lg:hidden">{link.label}</p>
+                <p className="max-lg:hidden">{link.label}</p>
               </Link>
             );
           })}

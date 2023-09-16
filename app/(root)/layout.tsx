@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import TopBar from "@/components/shared/TopBar/TopBar";
 import LeftBar from "@/components/shared/LeftBar/LeftBar";
+import BottomBar from "@/components/shared/BottomBar/BottomBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
               <div className="w-full">{children}</div>
             </section>
           </main>
+          <BottomBar />
         </body>
       </html>
     </ClerkProvider>
