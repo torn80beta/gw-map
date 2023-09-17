@@ -17,6 +17,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import * as z from "zod";
 import "./AddNodeForm.scss";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { gwList } from "@/constants";
 
 interface Props {
   userName: string;
@@ -35,7 +43,7 @@ function AddNodeForm({ userName }: Props) {
       comment1: "",
       tel2: "",
       comment2: "",
-      gw: 0,
+      gw: "",
       fibers: "",
     },
   });
@@ -51,7 +59,7 @@ function AddNodeForm({ userName }: Props) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 flex flex-col justify-center"
+        className="space-y-3 flex flex-col justify-center"
       >
         <div className="form-group-wrapper">
           <FormField
@@ -113,15 +121,19 @@ function AddNodeForm({ userName }: Props) {
             control={form.control}
             name="placement"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="grow">
                 <FormLabel>Placement</FormLabel>
-                <FormControl>
-                  <Input
-                    className="form-input"
-                    placeholder="Placement"
-                    {...field}
-                  />
-                </FormControl>
+                <Select onValueChange={field.onChange}>
+                  <FormControl>
+                    <SelectTrigger className="md:w-[225px] form-input">
+                      <SelectValue placeholder="Select" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Крыша">Крыша</SelectItem>
+                    <SelectItem value="Подъезд">Подъезд</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
@@ -217,15 +229,28 @@ function AddNodeForm({ userName }: Props) {
             control={form.control}
             name="gw"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="grow">
                 <FormLabel>GW</FormLabel>
-                <FormControl>
-                  <Input className="form-input" placeholder="gw" {...field} />
-                </FormControl>
+                <Select onValueChange={field.onChange}>
+                  <FormControl>
+                    <SelectTrigger className="md:w-[225px] form-input">
+                      <SelectValue placeholder="Select" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {gwList.map((i) => (
+                      <SelectItem
+                        key={i.gw}
+                        value={`${i.gw}`}
+                      >{`${i.gw}`}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="fibers"
