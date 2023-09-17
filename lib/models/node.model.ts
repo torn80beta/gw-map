@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const nodeSchema = new mongoose.Schema({
-  id: { type: String, required: true },
+  // id: { type: String, required: true },
   street: {
     type: String,
     required: true,

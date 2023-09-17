@@ -15,7 +15,7 @@ export async function fetchNodes(pageNumber = 1, pageSize = 20) {
     .skip(skipAmount)
     .limit(pageSize);
 
-  const totalNodesCount = await Node.countDocuments({}); // Get the total count of posts
+  const totalNodesCount = await Node.countDocuments({});
 
   const nodes = await nodesQuery.exec();
 
