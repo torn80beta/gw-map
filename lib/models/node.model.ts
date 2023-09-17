@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const nodeSchema = new mongoose.Schema({
+  id: { type: String, required: true },
   street: {
     type: String,
     required: true,
@@ -30,6 +31,6 @@ const nodeSchema = new mongoose.Schema({
   },
 });
 
-const Node = mongoose.models.Thread || mongoose.model("Node", nodeSchema);
+const Node = mongoose.models.Node || mongoose.model("Node", nodeSchema);
 
 export default Node;
