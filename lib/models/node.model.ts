@@ -10,6 +10,14 @@ const nodeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  entrance: {
+    type: String,
+    required: true,
+  },
+  placement: { type: String, required: true },
+  description: {
+    type: String,
+  },
   tel1: {
     type: String,
   },

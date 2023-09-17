@@ -1,3 +1,7 @@
 .form-input {
-  @apply max-md:text-xl;
+  @apply max-md:text-xl max-md:border-slate-500;
+}
+
+.form-group-wrapper {
+  @apply flex flex-row gap-4;
 }

@@ -13,6 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import * as z from "zod";
 import "./AddNodeForm.scss";
@@ -27,6 +28,9 @@ function AddNodeForm({ userName }: Props) {
     defaultValues: {
       street: "",
       building: "",
+      entrance: "",
+      placement: "",
+      description: "",
       tel1: "",
       comment1: "",
       tel2: "",
@@ -45,8 +49,11 @@ function AddNodeForm({ userName }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <div className="flex row gap-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4 flex flex-col justify-center"
+      >
+        <div className="form-group-wrapper">
           <FormField
             control={form.control}
             name="street"
@@ -83,16 +90,55 @@ function AddNodeForm({ userName }: Props) {
           />
         </div>
 
+        <div className="form-group-wrapper">
+          <FormField
+            control={form.control}
+            name="entrance"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Entrance</FormLabel>
+                <FormControl>
+                  <Input
+                    className="form-input"
+                    placeholder="1, 2..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="placement"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Placement</FormLabel>
+                <FormControl>
+                  <Input
+                    className="form-input"
+                    placeholder="Placement"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         <FormField
           control={form.control}
-          name="tel1"
+          name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Phone 1</FormLabel>
+              <FormLabel>Description</FormLabel>
               <FormControl>
-                <Input
+                <Textarea
                   className="form-input"
-                  placeholder="Phone..."
+                  placeholder="Description..."
+                  rows={3}
                   {...field}
                 />
               </FormControl>
@@ -100,35 +146,46 @@ function AddNodeForm({ userName }: Props) {
             </FormItem>
           )}
         />
+
+        <div className="form-group-wrapper">
+          <FormField
+            control={form.control}
+            name="tel1"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Phone 1</FormLabel>
+                <FormControl>
+                  <Input className="form-input" placeholder="0..." {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="tel2"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Phone 2</FormLabel>
+                <FormControl>
+                  <Input className="form-input" placeholder="0..." {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <FormField
           control={form.control}
           name="comment1"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Comment</FormLabel>
+              <FormLabel>Description to phone 1</FormLabel>
               <FormControl>
                 <Input
                   className="form-input"
-                  placeholder="Comment"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="tel2"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phone 2</FormLabel>
-              <FormControl>
-                <Input
-                  className="form-input"
-                  placeholder="Phone..."
+                  placeholder="Comment..."
                   {...field}
                 />
               </FormControl>
@@ -142,11 +199,11 @@ function AddNodeForm({ userName }: Props) {
           name="comment2"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Comment</FormLabel>
+              <FormLabel>Description to phone 2</FormLabel>
               <FormControl>
                 <Input
                   className="form-input"
-                  placeholder="Comment"
+                  placeholder="Comment..."
                   {...field}
                 />
               </FormControl>
@@ -155,33 +212,39 @@ function AddNodeForm({ userName }: Props) {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="gw"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>GW</FormLabel>
-              <FormControl>
-                <Input className="form-input" placeholder="gw" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="form-group-wrapper">
+          <FormField
+            control={form.control}
+            name="gw"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>GW</FormLabel>
+                <FormControl>
+                  <Input className="form-input" placeholder="gw" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="fibers"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Fiber</FormLabel>
+                <FormControl>
+                  <Input
+                    className="form-input"
+                    placeholder="Fiber"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
-        <FormField
-          control={form.control}
-          name="fibers"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Fibers</FormLabel>
-              <FormControl>
-                <Input className="form-input" placeholder="Fibers" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <Button type="submit">Submit</Button>
       </form>
     </Form>

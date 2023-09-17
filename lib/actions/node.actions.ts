@@ -24,12 +24,12 @@ export async function fetchNodes(pageNumber = 1, pageSize = 20) {
   return { nodes, isNext };
 }
 
-interface Params {
-  text: string;
-  author: string;
-  communityId: string | null;
-  path: string;
-}
+// interface Params {
+//   text: string;
+//   author: string;
+//   communityId: string | null;
+//   path: string;
+// }
 
 // export async function createThread({
 //   text,
