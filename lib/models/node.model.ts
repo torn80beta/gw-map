@@ -18,6 +18,7 @@ const nodeSchema = new mongoose.Schema({
     type: String,
   },
   comment2: { type: String },
+  gw: { type: String, required: true },
   fibers: {
     type: [{ color: String, target: String }],
   },
