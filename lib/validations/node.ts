@@ -6,8 +6,11 @@ export const NodeValidation = z.object({
   tel1: z.string().max(13, { message: "13 characters max." }),
   comment1: z.string().max(200, { message: "200 characters max." }).nonempty(),
   tel2: z.string().max(13, { message: "13 characters max." }),
-  comment2: z.string().max(200, { message: "200 characters max." }).nonempty(),
-  gw: z.string().nonempty(),
+  comment2: z.string().max(200, { message: "200 characters max." }),
+  gw: z.number({
+    required_error: "Required field",
+    invalid_type_error: "Must be a number",
+  }),
   fibers: z.string(),
-  user: z.string().nonempty(),
+  // user: z.string().nonempty(),
 });

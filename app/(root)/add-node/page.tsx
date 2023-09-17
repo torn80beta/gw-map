@@ -1,4 +1,4 @@
-import AddNodeForm from "@/components/forms/AddNodeForm";
+import AddNodeForm from "@/components/forms/AddNodeForm/AddNodeForm";
 import { currentUser } from "@clerk/nextjs";
 
 async function page() {
@@ -11,7 +11,8 @@ async function page() {
   return (
     <main className="page-container">
       <p>Add node</p>
-      <AddNodeForm user={user?.username || "unknown user"}></AddNodeForm>
+      <AddNodeForm userName={user?.username || "unknown user"}></AddNodeForm>
+      {/* <p>page bottom</p> */}
     </main>
   );
 }
