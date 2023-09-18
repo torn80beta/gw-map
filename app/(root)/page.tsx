@@ -8,7 +8,7 @@ export default async function Home() {
 
   return (
     <main className="page-container">
-      <h3 className="font-semibold">{`Hello, ${user?.username}`}</h3>
+      <h3 className="font-semibold">{`Hello, ${user?.username}!`}</h3>
       <p>Current number of nodes: {nodes.nodes.length}</p>
       <p>page bottom</p>
     </main>

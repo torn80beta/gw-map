@@ -10,9 +10,7 @@ async function page() {
 
   return (
     <main className="page-container">
-      {/* <p>Add node</p> */}
       <AddNodeForm userName={user?.username || "unknown user"}></AddNodeForm>
-      {/* <p>page bottom</p> */}
     </main>
   );
 }

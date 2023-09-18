@@ -24,50 +24,62 @@ export async function fetchNodes(pageNumber = 1, pageSize = 20) {
   return { nodes, isNext };
 }
 
-// interface Params {
-//   text: string;
-//   author: string;
-//   communityId: string | null;
-//   path: string;
-// }
+interface Params {
+  street: string;
+  building: string;
+  entrance: string;
+  placement: string;
+  description: string;
+  tel1: string;
+  comment1: string;
+  tel2: string;
+  comment2: string;
+  gw: string;
+  fibers: string;
+  path: string;
+  user: string;
+}
 
-// export async function createThread({
-//   text,
-//   author,
-//   communityId,
-//   path,
-// }: Params) {
-//   try {
-//     connectToDB();
+export async function addNode({
+  street,
+  building,
+  entrance,
+  placement,
+  description,
+  tel1,
+  comment1,
+  tel2,
+  comment2,
+  gw,
+  fibers,
+  user,
+  path,
+}: Params) {
+  try {
+    connectToDB();
 
-//     const communityIdObject = await Community.findOne(
-//       { id: communityId },
-//       { _id: 1 }
-//     );
+    const createdNode = await Node.create({
+      street,
+      building,
+      entrance,
+      placement,
+      description,
+      tel1,
+      comment1,
+      tel2,
+      comment2,
+      gw,
+      fibers,
+      user,
+    });
 
-//     const createdThread = await Thread.create({
-//       text,
-//       author,
-//       community: communityIdObject, // Assign communityId if provided, or leave it null for personal account
-//     });
+    revalidatePath(path);
 
-//     // Update User model
-//     await User.findByIdAndUpdate(author, {
-//       $push: { threads: createdThread._id },
-//     });
-
-//     if (communityIdObject) {
-//       // Update Community model
-//       await Community.findByIdAndUpdate(communityIdObject, {
-//         $push: { threads: createdThread._id },
-//       });
-//     }
-
-//     revalidatePath(path);
-//   } catch (error: any) {
-//     throw new Error(`Failed to create thread: ${error.message}`);
-//   }
-// }
+    return JSON.stringify({ ...createdNode._doc, status: 400 });
+  } catch (error: any) {
+    throw new Error(`Failed to create node: ${error.message}`);
+  }
+}
 
 // export async function deleteThread(id: string, path: string): Promise<void> {
 //   try {

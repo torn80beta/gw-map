@@ -25,12 +25,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { gwList } from "@/constants";
+import { addNode } from "@/lib/actions/node.actions";
+import { usePathname, useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 interface Props {
   userName: string;
 }
 
 function AddNodeForm({ userName }: Props) {
+  const pathName = usePathname();
+  const router = useRouter();
+  const { toast } = useToast();
+
   const form = useForm({
     resolver: zodResolver(NodeValidation),
     defaultValues: {
@@ -49,10 +56,43 @@ function AddNodeForm({ userName }: Props) {
   });
 
   const onSubmit = async (values: z.infer<typeof NodeValidation>) => {
-    console.log("UserName: " + userName);
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    await addNode({
+      street: values.street,
+      building: values.building,
+      entrance: values.entrance,
+      placement: values.placement,
+      description: values.description,
+      tel1: values.tel1,
+      comment1: values.comment1,
+      tel2: values.tel2,
+      comment2: values.comment2,
+      gw: values.gw,
+      fibers: values.fibers,
+      user: userName,
+      path: pathName,
+    }).then((res) => {
+      if (JSON.parse(res).status === 201) {
+        toast({
+          description: "Адрес добавлен.",
+          duration: 800,
+        });
+        console.log(JSON.parse(res));
+        form.reset();
+      } else {
+        toast({
+          variant: "destructive",
+          description: "Такой адрес уже существует.",
+          duration: 2000,
+        });
+      }
+    });
+
+    // toast({
+    //   description: "Адрес добавлен.",
+    //   duration: 800,
+    // });
+
+    // router.push("/");
   };
 
   return (
