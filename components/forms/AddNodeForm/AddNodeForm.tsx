@@ -56,6 +56,7 @@ function AddNodeForm({ userName }: Props) {
   });
 
   const onSubmit = async (values: z.infer<typeof NodeValidation>) => {
+    console.log(values);
     await addNode({
       street: values.street,
       building: values.building,
@@ -76,7 +77,7 @@ function AddNodeForm({ userName }: Props) {
           description: "Адрес добавлен.",
           duration: 800,
         });
-        console.log(JSON.parse(res));
+        // console.log(JSON.parse(res));
         form.reset();
       } else {
         toast({
@@ -107,7 +108,7 @@ function AddNodeForm({ userName }: Props) {
             name="street"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Street</FormLabel>
+                <FormLabel>Street *</FormLabel>
                 <FormControl>
                   <Input
                     className="form-input"
@@ -128,7 +129,7 @@ function AddNodeForm({ userName }: Props) {
             name="building"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Building</FormLabel>
+                <FormLabel>Building *</FormLabel>
                 <FormControl>
                   <Input className="form-input" placeholder="№" {...field} />
                 </FormControl>
@@ -144,7 +145,7 @@ function AddNodeForm({ userName }: Props) {
             name="entrance"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Entrance</FormLabel>
+                <FormLabel>Entrance *</FormLabel>
                 <FormControl>
                   <Input
                     className="form-input"
@@ -162,7 +163,7 @@ function AddNodeForm({ userName }: Props) {
             name="placement"
             render={({ field }) => (
               <FormItem className="grow">
-                <FormLabel>Placement</FormLabel>
+                <FormLabel>Placement *</FormLabel>
                 <Select onValueChange={field.onChange}>
                   <FormControl>
                     <SelectTrigger className="md:w-[225px] form-input">
@@ -174,6 +175,52 @@ function AddNodeForm({ userName }: Props) {
                     <SelectItem value="Подъезд">Подъезд</SelectItem>
                   </SelectContent>
                 </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="form-group-wrapper">
+          <FormField
+            control={form.control}
+            name="gw"
+            render={({ field }) => (
+              <FormItem className="grow">
+                <FormLabel>GW *</FormLabel>
+                <Select onValueChange={field.onChange}>
+                  <FormControl>
+                    <SelectTrigger className="md:w-[225px] form-input">
+                      <SelectValue placeholder="Select" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {gwList.map((i) => (
+                      <SelectItem
+                        key={i.gw}
+                        value={`${i.gw}`}
+                      >{`${i.gw}`}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="fibers"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Fiber</FormLabel>
+                <FormControl>
+                  <Input
+                    className="form-input"
+                    placeholder="Fiber"
+                    {...field}
+                  />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
@@ -263,52 +310,6 @@ function AddNodeForm({ userName }: Props) {
             </FormItem>
           )}
         />
-
-        <div className="form-group-wrapper">
-          <FormField
-            control={form.control}
-            name="gw"
-            render={({ field }) => (
-              <FormItem className="grow">
-                <FormLabel>GW</FormLabel>
-                <Select onValueChange={field.onChange}>
-                  <FormControl>
-                    <SelectTrigger className="md:w-[225px] form-input">
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {gwList.map((i) => (
-                      <SelectItem
-                        key={i.gw}
-                        value={`${i.gw}`}
-                      >{`${i.gw}`}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="fibers"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Fiber</FormLabel>
-                <FormControl>
-                  <Input
-                    className="form-input"
-                    placeholder="Fiber"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
 
         <Button type="submit">Submit</Button>
       </form>

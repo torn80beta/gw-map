@@ -75,7 +75,7 @@ export async function addNode({
 
     revalidatePath(path);
 
-    return JSON.stringify({ ...createdNode._doc, status: 400 });
+    return JSON.stringify({ ...createdNode._doc, status: 201 });
   } catch (error: any) {
     throw new Error(`Failed to create node: ${error.message}`);
   }
