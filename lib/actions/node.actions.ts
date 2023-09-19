@@ -87,6 +87,18 @@ export async function addNode({
   }
 }
 
+export async function fetchNodeById(threadId: string | string[]) {
+  connectToDB();
+
+  try {
+    const thread = await Node.findById(threadId);
+    return JSON.stringify({ ...thread._doc, status: 200 });
+  } catch (err) {
+    console.error("Error while fetching node:", err);
+    throw new Error("Unable to fetch node");
+  }
+}
+
 // export async function deleteThread(id: string, path: string): Promise<void> {
 //   try {
 //     connectToDB();

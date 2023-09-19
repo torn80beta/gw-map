@@ -1,11 +1,7 @@
-import { Space, Spin } from "antd";
+import { Spin } from "antd";
 
 function LoadSpinner() {
-  return (
-    // <Space size="middle">
-    <Spin size="small" />
-    // {/* </Space> */}
-  );
+  return <Spin size="large" />;
 }
 
 export default LoadSpinner;

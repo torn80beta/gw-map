@@ -83,15 +83,17 @@ function AddNodeForm({ userName }: Props) {
             setIsLoading(false);
             return null;
           }
-          if (JSON.parse(res).status === 201) {
+          const result = JSON.parse(res);
+          if (result.status === 201) {
             toast({
               description: "Адрес добавлен.",
               duration: 800,
             });
-            // console.log(JSON.parse(res));
-            // form.reset();
+            form.reset();
             setIsLoading(false);
-          } else if (JSON.parse(res).status === 409) {
+            console.log(result);
+            router.push(`/node/${result._id}`);
+          } else if (result.status === 409) {
             toast({
               variant: "destructive",
               description: "Такой адрес уже существует.",
@@ -103,41 +105,6 @@ function AddNodeForm({ userName }: Props) {
       500
     );
     // console.log(values);
-    // await addNode({
-    //   street: values.street,
-    //   building: values.building,
-    //   entrance: values.entrance,
-    //   placement: values.placement,
-    //   description: values.description,
-    //   tel1: values.tel1,
-    //   comment1: values.comment1,
-    //   tel2: values.tel2,
-    //   comment2: values.comment2,
-    //   gw: values.gw,
-    //   fibers: values.fibers,
-    //   user: userName,
-    //   path: pathName,
-    // }).then((res) => {
-    //   if (!res) {
-    //     return null;
-    //   }
-    //   if (JSON.parse(res).status === 201) {
-    //     toast({
-    //       description: "Адрес добавлен.",
-    //       duration: 800,
-    //     });
-    //     // console.log(JSON.parse(res));
-    //     form.reset();
-    //   } else if (JSON.parse(res).status === 409) {
-    //     toast({
-    //       variant: "destructive",
-    //       description: "Такой адрес уже существует.",
-    //       duration: 2000,
-    //     });
-    //   }
-    // });
-
-    // router.push("/");
   };
 
   return (
@@ -328,7 +295,7 @@ function AddNodeForm({ userName }: Props) {
               <FormControl>
                 <Input
                   className="form-input"
-                  placeholder="Comment..."
+                  placeholder="Description..."
                   {...field}
                 />
               </FormControl>
@@ -346,7 +313,7 @@ function AddNodeForm({ userName }: Props) {
               <FormControl>
                 <Input
                   className="form-input"
-                  placeholder="Comment..."
+                  placeholder="Description..."
                   {...field}
                 />
               </FormControl>
@@ -355,7 +322,7 @@ function AddNodeForm({ userName }: Props) {
           )}
         />
 
-        <Button type="submit" className="gap-2" disabled={isLoading}>
+        <Button type="submit" disabled={isLoading}>
           {(isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />) ||
             "Submit"}
           {/* <LoadSpinner /> */}
