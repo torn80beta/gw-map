@@ -28,6 +28,9 @@ import { gwList } from "@/constants";
 import { addNode } from "@/lib/actions/node.actions";
 import { usePathname, useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { Loader } from "lucide-react";
+import { useState } from "react";
+// import LoadSpinner from "@/components/shared/LoadSpinner/LoadSpinner";
 
 interface Props {
   userName: string;
@@ -37,6 +40,7 @@ function AddNodeForm({ userName }: Props) {
   const pathName = usePathname();
   const router = useRouter();
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(NodeValidation),
@@ -56,40 +60,82 @@ function AddNodeForm({ userName }: Props) {
   });
 
   const onSubmit = async (values: z.infer<typeof NodeValidation>) => {
+    setIsLoading(true);
+
+    setTimeout(
+      async () =>
+        await addNode({
+          street: values.street,
+          building: values.building,
+          entrance: values.entrance,
+          placement: values.placement,
+          description: values.description,
+          tel1: values.tel1,
+          comment1: values.comment1,
+          tel2: values.tel2,
+          comment2: values.comment2,
+          gw: values.gw,
+          fibers: values.fibers,
+          user: userName,
+          path: pathName,
+        }).then((res) => {
+          if (!res) {
+            setIsLoading(false);
+            return null;
+          }
+          if (JSON.parse(res).status === 201) {
+            toast({
+              description: "Адрес добавлен.",
+              duration: 800,
+            });
+            // console.log(JSON.parse(res));
+            // form.reset();
+            setIsLoading(false);
+          } else if (JSON.parse(res).status === 409) {
+            toast({
+              variant: "destructive",
+              description: "Такой адрес уже существует.",
+              duration: 2000,
+            });
+            setIsLoading(false);
+          }
+        }),
+      500
+    );
     // console.log(values);
-    await addNode({
-      street: values.street,
-      building: values.building,
-      entrance: values.entrance,
-      placement: values.placement,
-      description: values.description,
-      tel1: values.tel1,
-      comment1: values.comment1,
-      tel2: values.tel2,
-      comment2: values.comment2,
-      gw: values.gw,
-      fibers: values.fibers,
-      user: userName,
-      path: pathName,
-    }).then((res) => {
-      if (!res) {
-        return null;
-      }
-      if (JSON.parse(res).status === 201) {
-        toast({
-          description: "Адрес добавлен.",
-          duration: 800,
-        });
-        // console.log(JSON.parse(res));
-        form.reset();
-      } else if (JSON.parse(res).status === 409) {
-        toast({
-          variant: "destructive",
-          description: "Такой адрес уже существует.",
-          duration: 2000,
-        });
-      }
-    });
+    // await addNode({
+    //   street: values.street,
+    //   building: values.building,
+    //   entrance: values.entrance,
+    //   placement: values.placement,
+    //   description: values.description,
+    //   tel1: values.tel1,
+    //   comment1: values.comment1,
+    //   tel2: values.tel2,
+    //   comment2: values.comment2,
+    //   gw: values.gw,
+    //   fibers: values.fibers,
+    //   user: userName,
+    //   path: pathName,
+    // }).then((res) => {
+    //   if (!res) {
+    //     return null;
+    //   }
+    //   if (JSON.parse(res).status === 201) {
+    //     toast({
+    //       description: "Адрес добавлен.",
+    //       duration: 800,
+    //     });
+    //     // console.log(JSON.parse(res));
+    //     form.reset();
+    //   } else if (JSON.parse(res).status === 409) {
+    //     toast({
+    //       variant: "destructive",
+    //       description: "Такой адрес уже существует.",
+    //       duration: 2000,
+    //     });
+    //   }
+    // });
 
     // router.push("/");
   };
@@ -309,7 +355,11 @@ function AddNodeForm({ userName }: Props) {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="gap-2" disabled={isLoading}>
+          {(isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />) ||
+            "Submit"}
+          {/* <LoadSpinner /> */}
+        </Button>
       </form>
     </Form>
   );
