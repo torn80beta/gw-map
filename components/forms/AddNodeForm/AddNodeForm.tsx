@@ -56,7 +56,7 @@ function AddNodeForm({ userName }: Props) {
   });
 
   const onSubmit = async (values: z.infer<typeof NodeValidation>) => {
-    console.log(values);
+    // console.log(values);
     await addNode({
       street: values.street,
       building: values.building,
@@ -72,6 +72,9 @@ function AddNodeForm({ userName }: Props) {
       user: userName,
       path: pathName,
     }).then((res) => {
+      if (!res) {
+        return null;
+      }
       if (JSON.parse(res).status === 201) {
         toast({
           description: "Адрес добавлен.",
@@ -79,7 +82,7 @@ function AddNodeForm({ userName }: Props) {
         });
         // console.log(JSON.parse(res));
         form.reset();
-      } else {
+      } else if (JSON.parse(res).status === 409) {
         toast({
           variant: "destructive",
           description: "Такой адрес уже существует.",
@@ -87,11 +90,6 @@ function AddNodeForm({ userName }: Props) {
         });
       }
     });
-
-    // toast({
-    //   description: "Адрес добавлен.",
-    //   duration: 800,
-    // });
 
     // router.push("/");
   };

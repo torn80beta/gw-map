@@ -58,6 +58,12 @@ export async function addNode({
   try {
     connectToDB();
 
+    const isUnique = await Node.find({ street: street, building: building });
+    if (isUnique.length > 0) {
+      // console.log(isUnique);
+      return JSON.stringify({ status: 409, message: "Адрес уже существует" });
+    }
+
     const createdNode = await Node.create({
       street,
       building,
