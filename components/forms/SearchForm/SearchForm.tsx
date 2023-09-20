@@ -18,7 +18,6 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import "./SearchForm.scss";
 import { searchNode } from "@/lib/actions/node.actions";
-import { error } from "console";
 
 function SearchForm() {
   const { toast } = useToast();
@@ -30,15 +29,6 @@ function SearchForm() {
     defaultValues: {
       street: "",
       building: "",
-      entrance: "",
-      placement: "",
-      description: "",
-      tel1: "",
-      comment1: "",
-      tel2: "",
-      comment2: "",
-      gw: "",
-      fibers: "",
     },
   });
 
@@ -62,6 +52,14 @@ function SearchForm() {
         } else {
           setNodes(nodes);
           console.log(nodes);
+          const message =
+            nodes.length > 1
+              ? `Найдено ${nodes.length} адреса.`
+              : `Найден ${nodes.length} адрес.`;
+          toast({
+            description: `${message}`,
+            duration: 1200,
+          });
         }
       })
       .catch((error) => console.log(error));
@@ -71,7 +69,7 @@ function SearchForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-3 flex flex-col justify-center"
+        className="space-y-8 flex flex-col justify-center"
       >
         <div className="flex wrap items-end justify-between gap-3">
           <FormField
@@ -79,6 +77,7 @@ function SearchForm() {
             name="street"
             render={({ field }) => (
               <FormItem>
+                <FormMessage />
                 <FormControl>
                   <Input
                     className="form-input"
@@ -86,7 +85,6 @@ function SearchForm() {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -96,6 +94,7 @@ function SearchForm() {
             name="building"
             render={({ field }) => (
               <FormItem>
+                <FormMessage />
                 <FormControl>
                   <Input
                     className="form-input w-24"
@@ -103,7 +102,6 @@ function SearchForm() {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
