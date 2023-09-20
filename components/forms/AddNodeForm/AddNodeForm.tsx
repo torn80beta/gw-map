@@ -30,7 +30,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { Loader } from "lucide-react";
 import { useState } from "react";
-// import LoadSpinner from "@/components/shared/LoadSpinner/LoadSpinner";
 
 interface Props {
   userName: string;
@@ -325,7 +324,6 @@ function AddNodeForm({ userName }: Props) {
         <Button type="submit" disabled={isLoading}>
           {(isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />) ||
             "Submit"}
-          {/* <LoadSpinner /> */}
         </Button>
       </form>
     </Form>

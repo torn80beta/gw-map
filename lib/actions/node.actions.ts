@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { connectToDB } from "../mongoose";
 import Node from "../models/node.model";
+import { FilterQuery } from "mongoose";
 
 export async function fetchNodes(pageNumber = 1, pageSize = 20) {
   connectToDB();
@@ -96,6 +97,32 @@ export async function fetchNodeById(threadId: string | string[]) {
   } catch (error: any) {
     return JSON.stringify({ message: "Unable to fetch node", status: 400 });
     // throw new Error("Unable to fetch node");
+  }
+}
+
+export async function searchNode({
+  street,
+  building,
+}: {
+  street: string;
+  building: string;
+}) {
+  connectToDB();
+
+  const regexStreet = new RegExp(street, "i");
+  const regexBuilding = new RegExp(building, "i");
+
+  try {
+    const results = await Node.find({
+      $and: [
+        { street: { $regex: regexStreet } },
+        { building: { $regex: regexBuilding } },
+      ],
+    });
+
+    return JSON.stringify(results);
+  } catch (error: any) {
+    console.log(error);
   }
 }
 

@@ -55,10 +55,14 @@ function Node() {
 
   return (
     // console.log(currentNode),
-    <div>
+    <section>
       {!currentNode._id && <LoadSpinner />}
-      {currentNode && currentNode?.street}
-    </div>
+      {currentNode && (
+        <div>
+          {currentNode?.street} {currentNode?.building}
+        </div>
+      )}
+    </section>
   );
 }
 

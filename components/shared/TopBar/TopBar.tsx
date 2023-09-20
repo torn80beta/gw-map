@@ -14,7 +14,14 @@ async function TopBar() {
   return (
     <div className="topBar">
       <Link href={"/"}>
-        <Image src={"/assets/logo2.png"} alt={"logo"} width={48} height={48} />
+        <Image
+          src={"/assets/logo2.png"}
+          alt={"logo"}
+          width={48}
+          height={48}
+          priority={true}
+          style={{ maxWidth: "100%", height: "auto" }}
+        />
       </Link>
       <div className="flex items-center gap-1">
         <SignedIn>

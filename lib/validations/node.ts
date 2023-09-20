@@ -10,6 +10,7 @@ export const NodeValidation = z.object({
   building: z
     .string()
     .trim()
+    .toLowerCase()
     .max(10, { message: "10 characters max." })
     .nonempty({ message: "Required" }),
   entrance: z
