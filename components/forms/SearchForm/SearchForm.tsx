@@ -9,21 +9,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
 import { SearchFormValidation } from "@/lib/validations/search";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { SubmitHandler, useForm } from "react-hook-form";
 import "./SearchForm.scss";
-import { searchNode } from "@/lib/actions/node.actions";
 
-function SearchForm() {
-  const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
-  const [nodes, setNodes] = useState([]);
+interface Props {
+  onSubmit: SubmitHandler<{ street: string; building: string }>;
+  loading: boolean;
+}
 
+function SearchForm({ onSubmit, loading }: Props) {
   const form = useForm({
     resolver: zodResolver(SearchFormValidation),
     defaultValues: {
@@ -31,39 +28,6 @@ function SearchForm() {
       building: "",
     },
   });
-
-  const onSubmit = async (values: z.infer<typeof SearchFormValidation>) => {
-    setIsLoading(true);
-    const result = await searchNode(values)
-      .then((res) => {
-        if (!res) {
-          setIsLoading(false);
-          return null;
-        }
-        const nodes = JSON.parse(res);
-        setIsLoading(false);
-        if (nodes.length === 0) {
-          toast({
-            variant: "destructive",
-            description: "Адрес не найден.",
-            duration: 1200,
-          });
-          return;
-        } else {
-          setNodes(nodes);
-          console.log(nodes);
-          const message =
-            nodes.length > 1
-              ? `Найдено ${nodes.length} адреса.`
-              : `Найден ${nodes.length} адрес.`;
-          toast({
-            description: `${message}`,
-            duration: 1200,
-          });
-        }
-      })
-      .catch((error) => console.log(error));
-  };
 
   return (
     <Form {...form}>
@@ -107,8 +71,8 @@ function SearchForm() {
           />
         </div>
 
-        <Button type="submit" disabled={isLoading}>
-          {(isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />) ||
+        <Button type="submit" disabled={loading}>
+          {(loading && <Loader className="mr-2 h-4 w-4 animate-spin" />) ||
             "Search"}
         </Button>
       </form>

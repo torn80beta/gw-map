@@ -3,7 +3,6 @@
 import { revalidatePath } from "next/cache";
 import { connectToDB } from "../mongoose";
 import Node from "../models/node.model";
-import { FilterQuery } from "mongoose";
 
 export async function fetchNodes(pageNumber = 1, pageSize = 20) {
   connectToDB();
@@ -113,12 +112,15 @@ export async function searchNode({
   const regexBuilding = new RegExp(building, "i");
 
   try {
-    const results = await Node.find({
-      $and: [
-        { street: { $regex: regexStreet } },
-        { building: { $regex: regexBuilding } },
-      ],
-    });
+    const results = await Node.find(
+      {
+        $and: [
+          { street: { $regex: regexStreet } },
+          { building: { $regex: regexBuilding } },
+        ],
+      },
+      "_id street building"
+    );
 
     return JSON.stringify(results);
   } catch (error: any) {

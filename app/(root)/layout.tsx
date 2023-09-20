@@ -1,7 +1,7 @@
 import "../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, currentUser } from "@clerk/nextjs";
 import TopBar from "@/components/shared/TopBar/TopBar";
 import LeftBar from "@/components/shared/LeftBar/LeftBar";
 import BottomBar from "@/components/shared/BottomBar/BottomBar";
@@ -14,11 +14,16 @@ export const metadata: Metadata = {
   description: "GW address tool",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = await currentUser();
+  if (!user) {
+    return null;
+  }
+
   return (
     <ClerkProvider>
       <html lang="en">
@@ -27,7 +32,7 @@ export default function RootLayout({
           <main className="flex flex-row">
             <LeftBar />
             <section className="flex w-full flex-col items-center px-6 pt-22">
-              <div className="w-full">{children}</div>
+              {children}
             </section>
           </main>
           <BottomBar />
