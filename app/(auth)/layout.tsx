@@ -2,8 +2,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 
 export const metadata = {
-  title: "GW-map",
-  description: "MKTV",
+  title: "NKTV tech tool",
+  description: "NKTV tech tool",
 };
 
 const inter = Inter({ subsets: ["latin"] });

@@ -10,8 +10,8 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "GW Map",
-  description: "GW address tool",
+  title: "NKTV tech tool",
+  description: "NKTV tech tool",
 };
 
 export default async function RootLayout({
