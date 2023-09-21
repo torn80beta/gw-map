@@ -176,27 +176,29 @@ function AddNodeForm({ userName, node }: Props) {
         className="space-y-3 sm:p-6 sm:rounded-md flex flex-col justify-center sm:shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
       >
         <div className="form-group-wrapper">
-          <FormField
-            control={form.control}
-            name="street"
-            render={({ field }) => (
-              <FormItem>
-                {isEdit && <FormLabel>Street *</FormLabel>}
-                <FormControl>
-                  <Input
-                    className="form-input"
-                    placeholder="Street"
-                    {...field}
-                    disabled={!isEdit}
-                  />
-                </FormControl>
-                {/* <FormDescription>
+          <div className="w-full">
+            <FormField
+              control={form.control}
+              name="street"
+              render={({ field }) => (
+                <FormItem>
+                  {isEdit && <FormLabel>Street *</FormLabel>}
+                  <FormControl>
+                    <Input
+                      className="form-input w-full"
+                      placeholder="Street"
+                      {...field}
+                      disabled={!isEdit}
+                    />
+                  </FormControl>
+                  {/* <FormDescription>
                 This is your public display name.
               </FormDescription> */}
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
           <FormField
             control={form.control}
@@ -206,7 +208,7 @@ function AddNodeForm({ userName, node }: Props) {
                 {isEdit && <FormLabel>Building *</FormLabel>}
                 <FormControl>
                   <Input
-                    className="form-input"
+                    className="form-input w-24 sm:w-[180px] md:w-[225px]"
                     placeholder="№"
                     {...field}
                     disabled={!isEdit}
