@@ -25,7 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { gwList } from "@/constants";
-import { addNode } from "@/lib/actions/node.actions";
+import { addNode, updateNode } from "@/lib/actions/node.actions";
 import { usePathname, useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { Loader } from "lucide-react";
@@ -34,6 +34,7 @@ import { useState } from "react";
 interface Props {
   userName: string;
   node: {
+    _id: string;
     street: string;
     building: string;
     entrance: string;
@@ -76,9 +77,8 @@ function AddNodeForm({ userName, node }: Props) {
   });
 
   const onSubmit = async (values: z.infer<typeof NodeValidation>) => {
-    setIsEdit(false);
     setIsLoading(true);
-    // console.log(values);
+    console.log("Adding new node");
 
     setTimeout(
       async () =>
@@ -122,13 +122,57 @@ function AddNodeForm({ userName, node }: Props) {
         }),
       500
     );
-    // console.log(values);
+  };
+
+  const onEdit = async (values: z.infer<typeof NodeValidation>) => {
+    setIsLoading(true);
+    // console.log("Editing");
+    try {
+      const response = await updateNode({
+        id: node?._id,
+        street: values.street,
+        building: values.building,
+        entrance: values.entrance,
+        placement: values.placement,
+        description: values.description,
+        tel1: values.tel1,
+        comment1: values.comment1,
+        tel2: values.tel2,
+        comment2: values.comment2,
+        gw: values.gw,
+        fibers: values.fibers,
+        user: userName,
+        path: pathName,
+      });
+
+      const result = JSON.parse(response);
+      if (result.status === 204) {
+        toast({
+          description: "Адрес обновлен.",
+          duration: 800,
+        });
+
+        setIsEdit(false);
+        setIsLoading(false);
+        router.push(`/node/${result._id}`);
+      }
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        description: "Ooops, semething went wrong ¯_(ツ)_/¯",
+        duration: 2000,
+      });
+      console.log(error.message);
+      throw error;
+    }
   };
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(
+          pathName.includes("add") ? onSubmit : onEdit
+        )}
         className="space-y-3 sm:p-6 sm:rounded-md flex flex-col justify-center sm:shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
       >
         <div className="form-group-wrapper">

@@ -128,6 +128,77 @@ export async function searchNode({
   }
 }
 
+interface UpdateParams {
+  id: string | undefined;
+  street: string;
+  building: string;
+  entrance: string;
+  placement: string;
+  description: string;
+  tel1: string;
+  comment1: string;
+  tel2: string;
+  comment2: string;
+  gw: string;
+  fibers: string;
+  user: string;
+  path: string;
+}
+export async function updateNode({
+  id,
+  street,
+  building,
+  entrance,
+  placement,
+  description,
+  tel1,
+  comment1,
+  tel2,
+  comment2,
+  gw,
+  fibers,
+  user,
+  path,
+}: UpdateParams) {
+  if (id === undefined) {
+    throw new Error("Node undefined");
+  }
+
+  try {
+    connectToDB();
+
+    const updatedNode = await Node.findOneAndUpdate(
+      { _id: id },
+      {
+        street,
+        building,
+        entrance,
+        placement,
+        description,
+        tel1,
+        comment1,
+        tel2,
+        comment2,
+        gw,
+        fibers,
+        user,
+      }
+    );
+
+    if (!updatedNode) {
+      throw new Error("Node not found");
+    }
+
+    const node = await Node.findById(id);
+    // console.log(node);
+    revalidatePath(path);
+    return JSON.stringify({ ...node._doc, status: 204 });
+  } catch (error) {
+    console.error("Error updating node:", error);
+    throw error;
+  }
+}
+
 // export async function deleteThread(id: string, path: string): Promise<void> {
 //   try {
 //     connectToDB();
