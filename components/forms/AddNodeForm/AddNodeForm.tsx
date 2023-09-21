@@ -55,7 +55,8 @@ function AddNodeForm({ userName, node }: Props) {
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  // console.log(node);
+  const [isEdit, setIsEdit] = useState(pathName.includes("add") || false);
+  // console.log(isEdit);
 
   const form = useForm({
     resolver: zodResolver(NodeValidation),
@@ -75,6 +76,7 @@ function AddNodeForm({ userName, node }: Props) {
   });
 
   const onSubmit = async (values: z.infer<typeof NodeValidation>) => {
+    setIsEdit(false);
     setIsLoading(true);
     // console.log(values);
 
@@ -135,12 +137,13 @@ function AddNodeForm({ userName, node }: Props) {
             name="street"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Street *</FormLabel>
+                {isEdit && <FormLabel>Street *</FormLabel>}
                 <FormControl>
                   <Input
                     className="form-input"
                     placeholder="Street"
                     {...field}
+                    disabled={!isEdit}
                   />
                 </FormControl>
                 {/* <FormDescription>
@@ -156,9 +159,14 @@ function AddNodeForm({ userName, node }: Props) {
             name="building"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Building *</FormLabel>
+                {isEdit && <FormLabel>Building *</FormLabel>}
                 <FormControl>
-                  <Input className="form-input" placeholder="№" {...field} />
+                  <Input
+                    className="form-input"
+                    placeholder="№"
+                    {...field}
+                    disabled={!isEdit}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -172,12 +180,13 @@ function AddNodeForm({ userName, node }: Props) {
             name="entrance"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Entrance *</FormLabel>
+                {isEdit && <FormLabel>Entrance *</FormLabel>}
                 <FormControl>
                   <Input
                     className="form-input"
                     placeholder="1, 2..."
                     {...field}
+                    disabled={!isEdit}
                   />
                 </FormControl>
                 <FormMessage />
@@ -190,12 +199,13 @@ function AddNodeForm({ userName, node }: Props) {
             name="placement"
             render={({ field }) => (
               <FormItem className="grow">
-                <FormLabel>Placement *</FormLabel>
+                {isEdit && <FormLabel>Placement *</FormLabel>}
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={
                     node?.placement === "" ? field.value : node?.placement
                   }
+                  disabled={!isEdit}
                 >
                   <FormControl>
                     <SelectTrigger className="md:w-[225px] form-input">
@@ -219,10 +229,11 @@ function AddNodeForm({ userName, node }: Props) {
             name="gw"
             render={({ field }) => (
               <FormItem className="grow">
-                <FormLabel>GW *</FormLabel>
+                {isEdit && <FormLabel>GW *</FormLabel>}
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={node?.gw === "" ? field.value : node?.gw}
+                  disabled={!isEdit}
                 >
                   <FormControl>
                     <SelectTrigger className="md:w-[225px] form-input">
@@ -248,12 +259,13 @@ function AddNodeForm({ userName, node }: Props) {
             name="fibers"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Fiber</FormLabel>
+                {isEdit && <FormLabel>Fiber</FormLabel>}
                 <FormControl>
                   <Input
                     className="form-input"
                     placeholder="Fiber"
                     {...field}
+                    disabled={!isEdit}
                   />
                 </FormControl>
                 <FormMessage />
@@ -267,13 +279,14 @@ function AddNodeForm({ userName, node }: Props) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              {isEdit && <FormLabel>Description</FormLabel>}
               <FormControl>
                 <Textarea
                   className="form-input"
                   placeholder="Description..."
                   rows={3}
                   {...field}
+                  disabled={!isEdit}
                 />
               </FormControl>
               <FormMessage />
@@ -289,7 +302,12 @@ function AddNodeForm({ userName, node }: Props) {
               <FormItem>
                 <FormLabel>Phone 1</FormLabel>
                 <FormControl>
-                  <Input className="form-input" placeholder="0..." {...field} />
+                  <Input
+                    className="form-input"
+                    placeholder="0..."
+                    {...field}
+                    disabled={!isEdit}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -302,7 +320,12 @@ function AddNodeForm({ userName, node }: Props) {
               <FormItem>
                 <FormLabel>Phone 2</FormLabel>
                 <FormControl>
-                  <Input className="form-input" placeholder="0..." {...field} />
+                  <Input
+                    className="form-input"
+                    placeholder="0..."
+                    {...field}
+                    disabled={!isEdit}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -321,6 +344,7 @@ function AddNodeForm({ userName, node }: Props) {
                   className="form-input"
                   placeholder="Description..."
                   {...field}
+                  disabled={!isEdit}
                 />
               </FormControl>
               <FormMessage />
@@ -339,6 +363,7 @@ function AddNodeForm({ userName, node }: Props) {
                   className="form-input"
                   placeholder="Description..."
                   {...field}
+                  disabled={!isEdit}
                 />
               </FormControl>
               <FormMessage />
@@ -346,10 +371,21 @@ function AddNodeForm({ userName, node }: Props) {
           )}
         />
 
-        <Button type="submit" disabled={isLoading}>
-          {(isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />) ||
-            "Submit"}
-        </Button>
+        {isEdit && (
+          <Button type="submit" disabled={isLoading}>
+            {(isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />) ||
+              "Submit"}
+          </Button>
+        )}
+        {!isEdit && (
+          <Button
+            variant="secondary"
+            className="bg-emerald-500 hover:bg-emerald-300"
+            onClick={() => setIsEdit(true)}
+          >
+            Edit
+          </Button>
+        )}
       </form>
     </Form>
   );
