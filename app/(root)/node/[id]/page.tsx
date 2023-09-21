@@ -10,7 +10,7 @@ async function page() {
 
   return (
     <section className="page-container justify-center">
-      <Node />
+      <Node userName={user?.username || "unknown user"} />
     </section>
   );
 }

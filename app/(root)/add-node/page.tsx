@@ -9,7 +9,7 @@ async function page() {
 
   return (
     <section className="page-container">
-      <AddNodeForm userName={user?.username || "unknown user"} />
+      <AddNodeForm userName={user?.username || "unknown user"} node={null} />
     </section>
   );
 }

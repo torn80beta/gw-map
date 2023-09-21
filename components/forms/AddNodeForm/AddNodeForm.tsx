@@ -33,33 +33,50 @@ import { useState } from "react";
 
 interface Props {
   userName: string;
+  node: {
+    street: string;
+    building: string;
+    entrance: string;
+    placement: string;
+    description: string;
+    tel1: string;
+    comment1: string;
+    tel2: string;
+    comment2: string;
+    gw: string;
+    fibers: string;
+    user: string;
+    updatedAt: string;
+  } | null;
 }
 
-function AddNodeForm({ userName }: Props) {
+function AddNodeForm({ userName, node }: Props) {
   const pathName = usePathname();
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  // console.log(node);
 
   const form = useForm({
     resolver: zodResolver(NodeValidation),
     defaultValues: {
-      street: "",
-      building: "",
-      entrance: "",
-      placement: "",
-      description: "",
-      tel1: "",
-      comment1: "",
-      tel2: "",
-      comment2: "",
-      gw: "",
-      fibers: "",
+      street: node?.street || "",
+      building: node?.building || "",
+      entrance: node?.entrance || "",
+      placement: node?.placement || "",
+      description: node?.description || "",
+      tel1: node?.tel1 || "",
+      comment1: node?.comment1 || "",
+      tel2: node?.tel2 || "",
+      comment2: node?.comment2 || "",
+      gw: node?.gw || "",
+      fibers: node?.fibers || "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof NodeValidation>) => {
     setIsLoading(true);
+    // console.log(values);
 
     setTimeout(
       async () =>
@@ -174,7 +191,10 @@ function AddNodeForm({ userName }: Props) {
             render={({ field }) => (
               <FormItem className="grow">
                 <FormLabel>Placement *</FormLabel>
-                <Select onValueChange={field.onChange}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={node?.placement || field.value}
+                >
                   <FormControl>
                     <SelectTrigger className="md:w-[225px] form-input">
                       <SelectValue placeholder="Select" />
@@ -198,7 +218,10 @@ function AddNodeForm({ userName }: Props) {
             render={({ field }) => (
               <FormItem className="grow">
                 <FormLabel>GW *</FormLabel>
-                <Select onValueChange={field.onChange}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={node?.gw || field.value}
+                >
                   <FormControl>
                     <SelectTrigger className="md:w-[225px] form-input">
                       <SelectValue placeholder="Select" />

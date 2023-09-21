@@ -5,27 +5,33 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import LoadSpinner from "../shared/LoadSpinner/LoadSpinner";
 import { useToast } from "../ui/use-toast";
+import AddNodeForm from "../forms/AddNodeForm/AddNodeForm";
+import { formatDateString } from "@/lib/helpers/formatDate";
 
-function Node() {
+interface Props {
+  userName: string;
+}
+
+function Node({ userName }: Props) {
   const router = useRouter();
   const { toast } = useToast();
   const { id } = useParams();
 
   const [currentNode, setCurrentNode] = useState({
-    _id: null,
-    street: null,
-    building: null,
-    entrance: null,
-    placement: null,
-    description: null,
-    tel1: null,
-    comment1: null,
-    tel2: null,
-    comment2: null,
-    gw: null,
-    fibers: null,
-    user: null,
-    updatedAt: null,
+    _id: "",
+    street: "",
+    building: "",
+    entrance: "",
+    placement: "",
+    description: "",
+    tel1: "",
+    comment1: "",
+    tel2: "",
+    comment2: "",
+    gw: "",
+    fibers: "",
+    user: "",
+    updatedAt: "",
   });
 
   useEffect(() => {
@@ -55,10 +61,17 @@ function Node() {
     // console.log(currentNode),
     <section>
       {!currentNode._id && <LoadSpinner />}
-      {currentNode && (
-        <div>
-          {currentNode?.street} {currentNode?.building}
-        </div>
+      {currentNode._id && (
+        <>
+          <p>
+            Обновил{" "}
+            {`${currentNode.user} ${formatDateString(currentNode.updatedAt)}`}
+          </p>
+          <AddNodeForm
+            userName={userName || "unknown user"}
+            node={currentNode}
+          />
+        </>
       )}
     </section>
   );
