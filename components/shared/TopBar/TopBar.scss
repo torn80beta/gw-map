@@ -1,3 +1,26 @@
 .topBar {
   @apply fixed top-0 z-30 flex w-full items-center justify-between pr-9 pl-5 md:pl-9 lg:pl-14 xl:pl-16  py-3 bg-slate-300;
 }
+
+.glow {
+  border-radius: 25px;
+  color: #fff;
+  box-shadow: 0 0 2px #fff, 0 0 10px #fff, 0 0 20px #0ba9ca, 0 0 30px #0ba9ca,
+    0 0 40px #0ba9ca, 0 0 50px #0ba9ca;
+  -webkit-animation: blink 2s infinite alternate;
+  animation: blink 2s infinite alternate;
+}
+
+@-webkit-keyframes blink {
+  100% {
+    box-shadow: 0 0 3px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ba9ca,
+      0 0 70px #0ba9ca, 0 0 80px #0ba9ca;
+  }
+}
+
+@keyframes blink {
+  100% {
+    box-shadow: 0 0 3px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ba9ca,
+      0 0 70px #0ba9ca, 0 0 80px #0ba9ca;
+  }
+}

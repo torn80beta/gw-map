@@ -13,7 +13,7 @@ async function TopBar() {
 
   return (
     <div className="topBar">
-      <Link href={"/"}>
+      <Link href={"/"} className="relative">
         <Image
           src={"/assets/logo2.png"}
           alt={"logo"}
@@ -22,6 +22,7 @@ async function TopBar() {
           priority={true}
           style={{ maxWidth: "100%", height: "auto" }}
         />
+        {/* <div className="absolute inset-y-1 inset-x-1 w-9 h-9 round-full glow -z-30 hidden md:flex"></div> */}
       </Link>
       <div className="flex items-center gap-1">
         <SignedIn>

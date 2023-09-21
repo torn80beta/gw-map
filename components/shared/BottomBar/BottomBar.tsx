@@ -11,7 +11,7 @@ function BottomBar() {
   const pathname = usePathname();
 
   return (
-    <section className="bottom-bar">
+    <section className="bottom-bar shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
       <div className="bottombar_container">
         {sidebarLinks.map((link) => {
           const isActive =

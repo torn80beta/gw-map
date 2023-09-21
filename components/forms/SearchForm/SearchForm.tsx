@@ -33,9 +33,9 @@ function SearchForm({ onSubmit, loading }: Props) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 flex flex-col justify-center"
+        className="space-y-8 sm:p-6 sm:rounded-md flex flex-col justify-center sm:shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
       >
-        <div className="flex wrap items-end justify-between gap-3">
+        <div className="flex wrap items-end gap-3">
           <FormField
             control={form.control}
             name="street"

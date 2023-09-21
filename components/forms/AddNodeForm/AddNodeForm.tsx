@@ -110,7 +110,7 @@ function AddNodeForm({ userName }: Props) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-3 flex flex-col justify-center"
+        className="space-y-3 sm:p-6 sm:rounded-md flex flex-col justify-center sm:shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
       >
         <div className="form-group-wrapper">
           <FormField

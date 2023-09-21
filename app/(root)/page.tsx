@@ -61,8 +61,8 @@ export default function Home() {
   };
 
   return (
-    <main className="page-container min-w-fit ">
-      <ul className="w-full">
+    <main className="page-container min-w-fit lg:w-2/5 justify-end sm:justify-between gap-6">
+      <ul className="w-full sm:rounded-md sm:shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
         {nodes?.map((node) => (
           <li key={node._id} className="border-b-2 hover:bg-green-200">
             <a
