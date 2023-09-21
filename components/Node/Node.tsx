@@ -28,8 +28,6 @@ function Node() {
     updatedAt: null,
   });
 
-  // console.log(id);
-
   useEffect(() => {
     try {
       const getNode = async () => {

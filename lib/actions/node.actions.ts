@@ -36,8 +36,8 @@ interface Params {
   comment2: string;
   gw: string;
   fibers: string;
-  path: string;
   user: string;
+  path: string;
 }
 
 export async function addNode({
@@ -121,10 +121,10 @@ export async function searchNode({
       },
       "_id street building"
     );
-
+    // throw new Error("Oops");
     return JSON.stringify(results);
   } catch (error: any) {
-    console.log(error);
+    throw error;
   }
 }
 

@@ -39,7 +39,7 @@ export default function Home() {
         return;
       } else {
         setNodes(nodes);
-        console.log(nodes);
+        // console.log(nodes);
         const message =
           nodes.length > 1
             ? `Найдено ${nodes.length} адреса.`
@@ -49,8 +49,14 @@ export default function Home() {
           duration: 1200,
         });
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      setIsLoading(false);
+      toast({
+        variant: "destructive",
+        description: "Ooops, semething went wrong ¯_(ツ)_/¯",
+        duration: 2000,
+      });
+      // console.log(error);
     }
   };
 

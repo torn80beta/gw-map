@@ -1,7 +1,27 @@
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 
-const nodeSchema = new mongoose.Schema({
-  // id: { type: String, required: true },
+import mongoose, { Document, Schema, Model } from "mongoose";
+
+export interface INode extends Document {
+  street: string;
+  building: string;
+  entrance: string;
+  placement: string;
+  description: string;
+  tel1: string;
+  comment1: string;
+  tel2: string;
+  comment2: string;
+  gw: string;
+  fibers: string;
+  user: string;
+  updatedAt: {
+    type: DateConstructor;
+    default: () => number;
+  };
+}
+
+const nodeSchema: Schema<INode> = new Schema({
   street: {
     type: String,
     required: true,
@@ -37,6 +57,8 @@ const nodeSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+// const Node: Model<INode> = mongoose.model<INode>("Node", nodeSchema);
 
 const Node = mongoose.models.Node || mongoose.model("Node", nodeSchema);
 
