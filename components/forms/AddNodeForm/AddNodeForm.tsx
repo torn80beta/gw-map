@@ -193,7 +193,9 @@ function AddNodeForm({ userName, node }: Props) {
                 <FormLabel>Placement *</FormLabel>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={node?.placement || field.value}
+                  defaultValue={
+                    node?.placement === "" ? field.value : node?.placement
+                  }
                 >
                   <FormControl>
                     <SelectTrigger className="md:w-[225px] form-input">
@@ -220,7 +222,7 @@ function AddNodeForm({ userName, node }: Props) {
                 <FormLabel>GW *</FormLabel>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={node?.gw || field.value}
+                  defaultValue={node?.gw === "" ? field.value : node?.gw}
                 >
                   <FormControl>
                     <SelectTrigger className="md:w-[225px] form-input">
