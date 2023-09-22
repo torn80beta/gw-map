@@ -29,13 +29,29 @@ export const burgerLinks = [
     label: "Личный кабинет",
   },
   {
+    imgURL: "/assets/settings.svg",
+    route: "http://192.168.1.1",
+    label: "192.168.1.1",
+  },
+  {
+    imgURL: "/assets/settings.svg",
+    route: "http://192.168.0.1",
+    label: "192.168.0.1",
+  },
+  {
+    imgURL: "/assets/settings.svg",
+    route: "http://192.168.1.254",
+    label: "192.168.1.254",
+  },
+
+  {
     imgURL: "/assets/zabbix.svg",
-    route: "http://zabbix.trion.mk.ua/sysmaps.php",
+    route: `${process.env.ZABBIX_URL}`,
     label: "Карты сетей",
   },
   {
     imgURL: "/assets/orders.svg",
-    route: "https://pbstest.trion.mk.ua:4437/orders/orders.php",
+    route: `${process.env.PBS_URL}`,
     label: "Заявки",
   },
 ];
