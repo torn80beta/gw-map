@@ -192,7 +192,6 @@ function AddNodeForm({ userName, node }: Props) {
                     />
                   </FormControl>
                   {/* <FormDescription>
-                This is your public display name.
               </FormDescription> */}
                   <FormMessage />
                 </FormItem>
