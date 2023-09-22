@@ -49,15 +49,15 @@ interface Props {
     user: string;
     updatedAt: string;
   } | null;
+  setIsEdit: any;
+  isEdit: boolean;
 }
 
-function AddNodeForm({ userName, node }: Props) {
-  const pathName = usePathname();
+function AddNodeForm({ userName, node, setIsEdit, isEdit }: Props) {
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const [isEdit, setIsEdit] = useState(pathName.includes("add") || false);
-  // console.log(isEdit);
+  const pathName = usePathname();
 
   const form = useForm({
     resolver: zodResolver(NodeValidation),
@@ -109,7 +109,7 @@ function AddNodeForm({ userName, node }: Props) {
             });
             form.reset();
             setIsLoading(false);
-            console.log(result);
+            // console.log(result);
             router.push(`/node/${result._id}`);
           } else if (result.status === 409) {
             toast({
@@ -126,7 +126,7 @@ function AddNodeForm({ userName, node }: Props) {
 
   const onEdit = async (values: z.infer<typeof NodeValidation>) => {
     setIsLoading(true);
-    // console.log("Editing");
+
     try {
       const response = await updateNode({
         id: node?._id,
@@ -416,21 +416,10 @@ function AddNodeForm({ userName, node }: Props) {
           )}
         />
 
-        {isEdit && (
-          <Button type="submit" disabled={isLoading}>
-            {(isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />) ||
-              "Submit"}
-          </Button>
-        )}
-        {!isEdit && (
-          <Button
-            variant="secondary"
-            className="bg-emerald-500 hover:bg-emerald-300"
-            onClick={() => setIsEdit(true)}
-          >
-            Edit
-          </Button>
-        )}
+        <Button type="submit" disabled={isLoading}>
+          {(isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />) ||
+            "Submit"}
+        </Button>
       </form>
     </Form>
   );

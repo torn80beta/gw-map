@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import LoadSpinner from "../shared/LoadSpinner/LoadSpinner";
 import { useToast } from "../ui/use-toast";
 import AddNodeForm from "../forms/AddNodeForm/AddNodeForm";
-import { formatDateString } from "@/lib/helpers/formatDate";
+import NodeCard from "../NodeCard/NodeCard";
 
 interface Props {
   userName: string;
@@ -16,7 +16,7 @@ function Node({ userName }: Props) {
   const router = useRouter();
   const { toast } = useToast();
   const { id } = useParams();
-
+  const [isEdit, setIsEdit] = useState(false);
   const [currentNode, setCurrentNode] = useState({
     _id: "",
     street: "",
@@ -55,23 +55,21 @@ function Node({ userName }: Props) {
     } catch (error: any) {
       console.log(error);
     }
-  }, [id]);
+  }, [id, isEdit]);
 
   return (
-    // console.log(currentNode),
     <section>
       {!currentNode._id && <LoadSpinner />}
-      {currentNode._id && (
-        <>
-          <p>
-            Обновил{" "}
-            {`${currentNode.user} ${formatDateString(currentNode.updatedAt)}`}
-          </p>
-          <AddNodeForm
-            userName={userName || "unknown user"}
-            node={currentNode}
-          />
-        </>
+      {currentNode._id && !isEdit && (
+        <NodeCard node={currentNode} setIsEdit={setIsEdit} />
+      )}
+      {currentNode._id && isEdit && (
+        <AddNodeForm
+          userName={userName || "unknown user"}
+          node={currentNode}
+          setIsEdit={setIsEdit}
+          isEdit={isEdit}
+        />
       )}
     </section>
   );
