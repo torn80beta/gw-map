@@ -4,8 +4,9 @@ import { SignOutButton, SignedIn } from "@clerk/nextjs";
 import "./LeftBar.scss";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
-import { sidebarLinks } from "@/constants";
+import { burgerLinks, sidebarLinks } from "@/constants";
 import Link from "next/link";
+import UtilLinks from "./UtilLinks";
 
 function LeftBar() {
   const router = useRouter();
@@ -39,7 +40,9 @@ function LeftBar() {
             );
           })}
         </div>
+        <UtilLinks />
       </div>
+
       <SignedIn>
         <SignOutButton signOutCallback={() => router.push("/sign-in")}>
           <button className="flex items-center bg-emerald-500 hover:bg-emerald-300 px-6 py-2 rounded-lg gap-1">
@@ -47,8 +50,8 @@ function LeftBar() {
               <Image
                 src="/assets/logout.svg"
                 alt="logout"
-                width={52}
-                height={52}
+                width={24}
+                height={24}
               />
             </div>
             <p className="max-lg:hidden">Logout</p>

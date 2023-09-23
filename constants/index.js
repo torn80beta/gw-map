@@ -11,12 +11,12 @@ export const sidebarLinks = [
   },
 ];
 
-export const burgerLinks = [
+export const utilLinks = [
   {
     imgURL: "/assets/router.svg",
     route:
       "http://wiki.trion.mk.ua/index.php?title=%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0_%D0%BC%D0%B0%D1%80%D1%88%D1%80%D1%83%D1%82%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%B2",
-    label: "Марщрутизаторы",
+    label: "Routers",
   },
   {
     imgURL: "/assets/prise.svg",
@@ -26,7 +26,7 @@ export const burgerLinks = [
   {
     imgURL: "/assets/user.svg",
     route: "https://stat.nktv.mk.ua/",
-    label: "Личный кабинет",
+    label: "Кабинет",
   },
   {
     imgURL: "/assets/settings.svg",
@@ -43,15 +43,18 @@ export const burgerLinks = [
     route: "http://192.168.1.254",
     label: "192.168.1.254",
   },
+];
 
+export const burgerLinks = [
+  ...utilLinks,
   {
     imgURL: "/assets/zabbix.svg",
-    route: `${process.env.ZABBIX_URL}`,
+    route: `http://${process.env.ZABBIX_URL}`,
     label: "Карты сетей",
   },
   {
     imgURL: "/assets/orders.svg",
-    route: `${process.env.PBS_URL}`,
+    route: `https://${process.env.PBS_URL}`,
     label: "Заявки",
   },
 ];
