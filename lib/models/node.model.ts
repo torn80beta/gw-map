@@ -15,48 +15,43 @@ export interface INode extends Document {
   gw: string;
   fibers: string;
   user: string;
-  updatedAt: {
-    type: DateConstructor;
-    default: () => number;
-  };
 }
 
-const nodeSchema: Schema<INode> = new Schema({
-  street: {
-    type: String,
-    required: true,
+const nodeSchema: Schema<INode> = new Schema(
+  {
+    street: {
+      type: String,
+      required: true,
+    },
+    building: {
+      type: String,
+      required: true,
+    },
+    entrance: {
+      type: String,
+      required: true,
+    },
+    placement: { type: String, required: true },
+    description: {
+      type: String,
+    },
+    tel1: {
+      type: String,
+    },
+    comment1: { type: String },
+    tel2: {
+      type: String,
+    },
+    comment2: { type: String },
+    gw: { type: String, required: true },
+    fibers: { type: String },
+    user: {
+      type: String,
+      required: true,
+    },
   },
-  building: {
-    type: String,
-    required: true,
-  },
-  entrance: {
-    type: String,
-    required: true,
-  },
-  placement: { type: String, required: true },
-  description: {
-    type: String,
-  },
-  tel1: {
-    type: String,
-  },
-  comment1: { type: String },
-  tel2: {
-    type: String,
-  },
-  comment2: { type: String },
-  gw: { type: String, required: true },
-  fibers: { type: String },
-  user: {
-    type: String,
-    required: true,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  { versionKey: false, timestamps: true }
+);
 
 // const Node: Model<INode> = mongoose.model<INode>("Node", nodeSchema);
 
