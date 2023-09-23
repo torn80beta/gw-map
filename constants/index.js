@@ -49,12 +49,12 @@ export const burgerLinks = [
   ...utilLinks,
   {
     imgURL: "/assets/zabbix.svg",
-    route: `http://${process.env.ZABBIX_URL}`,
+    route: `${process.env.ZABBIX_URL}`,
     label: "Карты сетей",
   },
   {
     imgURL: "/assets/orders.svg",
-    route: `https://${process.env.PBS_URL}`,
+    route: `${process.env.PBS_URL}`,
     label: "Заявки",
   },
 ];
