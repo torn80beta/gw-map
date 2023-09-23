@@ -4,9 +4,10 @@ import { SignOutButton, SignedIn } from "@clerk/nextjs";
 import "./LeftBar.scss";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
-import { burgerLinks, sidebarLinks } from "@/constants";
+import { sidebarLinks } from "@/constants";
 import Link from "next/link";
 import UtilLinks from "./UtilLinks";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 function LeftBar() {
   const router = useRouter();
@@ -14,7 +15,7 @@ function LeftBar() {
 
   return (
     <div className="leftsidebar">
-      <div>
+      <ScrollArea>
         <div className="flex w-full flex-1 items-start max-lg:items-center flex-col gap-4">
           {sidebarLinks.map((link) => {
             const isActive =
@@ -41,11 +42,11 @@ function LeftBar() {
           })}
         </div>
         <UtilLinks />
-      </div>
+      </ScrollArea>
 
       <SignedIn>
         <SignOutButton signOutCallback={() => router.push("/sign-in")}>
-          <button className="flex items-center bg-emerald-500 hover:bg-emerald-300 px-6 py-2 rounded-lg gap-1">
+          <button className="flex items-center justify-center bg-emerald-500 hover:bg-emerald-300 px-6 py-2 rounded-lg gap-1">
             <div className="flex cursor-pointer">
               <Image
                 src="/assets/logout.svg"
