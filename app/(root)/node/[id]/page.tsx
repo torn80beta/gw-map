@@ -4,9 +4,9 @@ import { currentUser } from "@clerk/nextjs";
 async function page() {
   const user = await currentUser();
 
-  if (!user) {
-    return null;
-  }
+  // if (!user) {
+  //   return null;
+  // }
 
   return (
     <section className="page-container justify-center">

@@ -7,11 +7,13 @@ import { SearchFormValidation } from "@/lib/validations/search";
 import { useToast } from "@/components/ui/use-toast";
 import * as z from "zod";
 import { searchNode } from "@/lib/actions/node.actions";
+import Link from "next/link";
 
 interface INodes {
   _id: string;
   street: string;
   building: string;
+  entrance: string;
 }
 
 export default function Home() {
@@ -65,13 +67,16 @@ export default function Home() {
       <ul className="w-full sm:rounded-md sm:shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
         {nodes?.map((node) => (
           <li key={node._id} className="border-b-2 hover:bg-green-200">
-            <a
+            <Link
               href={`node/${node._id}`}
               className="flex row justify-between p-2"
             >
-              <div className="">{node.street}</div>
-              <div className="">{node.building}</div>
-            </a>
+              <p className="">{node.street}</p>
+              <div className="flex row gap-2">
+                <p className="">{node.building},</p>
+                <p className="">{node.entrance} п.</p>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>

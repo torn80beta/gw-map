@@ -19,10 +19,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await currentUser();
-  if (!user) {
-    return null;
-  }
+  // const user = await currentUser();
+  // if (!user) {
+  //   return null;
+  // }
 
   return (
     <ClerkProvider>

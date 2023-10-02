@@ -36,8 +36,8 @@ function NodeCard({ node, setIsEdit }: Props) {
   }
 
   return (
-    <section className="shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
-      <Card>
+    <section className="card">
+      <Card className="shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
         <CardHeader>
           <CardTitle>
             {`GW${node.gw}: ${node.street} ${node.building}`}

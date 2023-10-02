@@ -8,9 +8,9 @@ import BurgerMenu from "../BurgerMenu/BurgerMenu";
 async function TopBar() {
   const user = await currentUser();
 
-  if (!user) {
-    return null;
-  }
+  // if (!user) {
+  //   return null;
+  // }
 
   return (
     <div className="topBar">
@@ -29,7 +29,7 @@ async function TopBar() {
       </Link>
       <div className="flex items-center gap-1">
         <SignedIn>
-          <h4 className="max-md:hidden">{user.username}</h4>
+          <h4 className="max-md:hidden">{user?.username}</h4>
           <UserButton
             appearance={{
               elements: { userButtonPopoverFooter: "hidden" },

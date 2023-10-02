@@ -119,7 +119,7 @@ export async function searchNode({
           { building: { $regex: regexBuilding } },
         ],
       },
-      "_id street building"
+      "_id street building entrance"
     );
     // throw new Error("Oops");
     return JSON.stringify(results);
