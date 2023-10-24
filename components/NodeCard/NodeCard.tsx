@@ -55,7 +55,7 @@ function NodeCard({ node, setIsEdit }: Props) {
         </CardContent>
         {node.tel1 && (
           <CardContent className="">
-            <a href={`tel:+380${node.tel1}`} className="flex row gap-2">
+            <a href={`tel:+38${node.tel1}`} className="flex row gap-2">
               <Phone />
               +38{`${node.tel1}`}
             </a>
