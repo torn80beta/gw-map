@@ -8,6 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import * as z from "zod";
 import { searchNode } from "@/lib/actions/node.actions";
 import Link from "next/link";
+import { Divide } from "lucide-react";
 
 interface INodes {
   _id: string;
@@ -64,6 +65,13 @@ export default function Home() {
 
   return (
     <main className="page-container min-w-fit lg:w-2/5 justify-end sm:justify-between gap-6">
+      {!nodes && (
+        <div className="flex flex-col items-center justify-center">
+          <h2>Media types:</h2>
+          <p>1550 = 721 = 111 = 965DA = 102 = 202/20</p>
+          <p>1310 = 521 = 112 = 965DB = 101 = 201/20</p>
+        </div>
+      )}
       <ul className="w-full sm:rounded-md sm:shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
         {nodes?.map((node) => (
           <li key={node._id} className="border-b-2 hover:bg-green-200">
