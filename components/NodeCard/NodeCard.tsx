@@ -43,7 +43,7 @@ function NodeCard({ node, setIsEdit }: Props) {
             {`GW${node.gw}: ${node.street} ${node.building}`}
           </CardTitle>
           <CardDescription>{`Обновил ${node.user} ${formatDateString(
-            node.updatedAt
+            node.updatedAt,
           )}`}</CardDescription>
         </CardHeader>
         <CardContent>
@@ -64,7 +64,7 @@ function NodeCard({ node, setIsEdit }: Props) {
         )}
         {node.tel2 && (
           <CardContent className="">
-            <a href={`tel:+380${node.tel2}`} className="flex row gap-2">
+            <a href={`tel:+38${node.tel2}`} className="flex row gap-2">
               <Phone />
               +38{`${node.tel2}`}
             </a>
